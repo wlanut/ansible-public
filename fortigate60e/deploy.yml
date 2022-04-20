@@ -1,0 +1,47 @@
+- hosts: fortigates
+  collections:
+  - fortinet.fortios
+  connection: httpapi
+  vars_files:
+    - vars.yml
+  vars:
+    ansible_httpapi_use_ssl: yes
+    ansible_httpapi_validate_certs: no
+    ansible_httpapi_port: 443
+  
+  tasks:
+
+    - name: Change Admin Server Certificate #Need to change the admin cert as you cannot delete a cert while it's in use
+      fortios_system_global:
+        vdom:  "{{ vdom }}"
+        access_token: "{{ fortios_access_token }}"
+        system_global:
+          admin_server_cert: "{{ temp_cert_name }}"
+    
+    - name: Delete Local Certificate 
+      fortios_vpn_certificate_local:
+        vdom: "{{ vdom }}"
+        access_token: "{{ fortios_access_token }}"
+        state: 'absent'
+        vpn_certificate_local:
+            name: "{{ new_cert_name }}"
+
+    - name: Import Local Certificate 
+      fortios_monitor:
+        vdom: "{{ vdom }}"
+        access_token: "{{ fortios_access_token }}"
+        enable_log: true
+        selector: 'import.vpn-certificate.local'
+        params:
+            type: 'regular'
+            scope: 'global'
+            certname: "{{ new_cert_name }}"
+            file_content: "{{ cert_content }}"
+            key_file_content: "{{ private_key }}"
+   
+    - name: Change Admin Server Certificate
+      fortios_system_global:
+        vdom:  "{{ vdom }}"
+        access_token: "{{ fortios_access_token }}"
+        system_global:
+          admin_server_cert: "{{ new_cert_name }}"

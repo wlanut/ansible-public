@@ -1,0 +1,9 @@
+---
+vdom: "root" #default Fortigate VDOM
+private_key: "{{ lookup( 'file', 'path/to/key.pem') | b64encode}}" #the needed encode for the certs to be properly read
+cert_content: "{{ lookup( 'file', 'path/to/cert.pem') | b64encode}}" #the needed encode for the certs to be properly read
+temp_cert_name: 'temp_cert_name' #name of cert to temporarily change admin server to until new one is uploaded
+new_cert_name: 'new_cert_name' #name of newly uploaded cert
+dest_certs_path: 'path/to/local/cert/folder' #Used for the rsync pull
+src_certs_path: user@hostname:'path/to/remote/cert/folder' #Used for the rsync pull
+ssh_key: ~/.ssh/id_rsa #Used for the rsync pull

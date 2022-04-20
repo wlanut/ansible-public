@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars_files:
+    - vars.yml
+  tasks:
+  - name: create directory to store certs
+    file:
+      path: "{{ dest_certs_path }}"
+      state: directory
+
+  - name: Synchronization using rsync protocol (pull)
+    ansible.posix.synchronize:
+      use_ssh_args: yes
+      private_key: "{{ ssh_key }}"
+      mode: pull
+      src: "{{ src_certs_path }}"
+      dest: "{{ dest_certs_path }}"
