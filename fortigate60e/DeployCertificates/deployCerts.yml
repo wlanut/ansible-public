@@ -1,3 +1,4 @@
+---
 - hosts: fortigates
   collections:
   - fortinet.fortios
@@ -26,7 +27,7 @@
         vpn_certificate_local:
             name: "{{ new_cert_name }}"
 
-    - name: Import Local Certificate 
+    - name: Import Local Certificate
       fortios_monitor:
         vdom: "{{ vdom }}"
         access_token: "{{ fortios_access_token }}"
