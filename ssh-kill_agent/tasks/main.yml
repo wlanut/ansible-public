@@ -1,0 +1,7 @@
+---
+# tasks file for start-ssh_agent
+
+  - name:
+    ansible.builtin.shell: eval "$(ssh-agent -k)"
+    args:
+      executable: bash

@@ -1,0 +1,21 @@
+---
+# tasks file for ssh-add-passphrase
+  
+  # Uncomment below if you want to use the script version
+  # - name: 
+  #   ansible.builtin.script: ssh-add.exp
+  #   args:
+  #     executable: expect
+
+  - name: add ssh key
+    ansible.builtin.shell: |
+      spawn ssh-add "{{ssh_key_location}}"
+
+      expect "Enter passphrase for {{ssh_key_location}}:"
+      send "{{ssh_passphrase}}\n";
+      
+      expect "Identity added: {{ssh_key_location}}"
+      interact
+    args:
+      executable: /usr/bin/expect
+    no_log: true

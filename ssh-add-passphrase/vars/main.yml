@@ -1,0 +1,5 @@
+---
+# vars file for ssh-add-passphrase
+ssh_user: username
+ssh_key_location: /home/username/.ssh/id_rsa
+ssh_passphrase: your_passphrase
