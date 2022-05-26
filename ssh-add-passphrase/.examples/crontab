@@ -1,0 +1,1 @@
+0 2 * * * eval "$(ssh-agent -s)" && /usr/bin/ansible-playbook /path/to/playbook.yml >> /path/to/cronlog 2>&1

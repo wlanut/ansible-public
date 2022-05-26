@@ -1,0 +1,9 @@
+- `crontab -e` - Opens the crontab file for editing
+- `0 2 * * *` - Run at 2am every day (helpful [cron generator](https://crontab-generator.org/) tool if you need it)
+- `eval "$(ssh-agent -s)"` - Start the SSH agent
+- `&&` Only run next task if previous one completes successfully
+- `/usr/bin/ansible-playbook` - Path to ansible-playbook executable (locate by running `whereis ansible-playbook` in your terminal)
+- `/path/to/playbook.yml` - Path to your ansible playbook
+- `>>` - append output to file
+- `/path/to/cronlog 2>&1` - path to desired log file, [see here for an explanation](https://unix.stackexchange.com/a/163359) of the last bit. If you'd like to [include the date](https://serverfault.com/a/117365/957243), replace this part with something like ``$HOME/.logs/`date +%Y-%m-%d_%H:%M:%S`-cron.log 2>&1``
+- `curl -fss -m 10 --retry 5 https://hc-ping.com/f8-n9v3ytn432-dsnj3e3210-ddl7` - My [Healthchecks.io monitoring](https://healthchecks.io/) check
