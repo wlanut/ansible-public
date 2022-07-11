@@ -1,0 +1,18 @@
+---
+# Super simple example of placing this role in front of another one
+# adds your key before remote connection
+
+- hosts: localhost
+  roles:
+  - roles/ssh-add
+
+- hosts: ubnt-servers
+  become: yes
+  roles:
+  - roles/deploy-packages
+
+# note the use of the additional role here to kill ssh agent, if you created one
+# this role is literally just the shell module running eval "$(ssh-agent -k)"
+- hosts: localhost
+  roles:
+  - roles/ssh-kill_agent
